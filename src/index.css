@@ -1,3 +1,9 @@
 .container {
 	text-align: center;
 }
+
+body {
+	background:url('./assets/blue.jpg');
+	background-size: fill;
+	background-repeat: no-repeat;
+}
