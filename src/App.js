@@ -2,6 +2,7 @@
 import React from 'react'
 import Weather from './components/Weather'
 import Form from './components/Form'
+import Forecast from './components/Forecast'
 import 'weather-icons/css/weather-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -74,10 +75,15 @@ class App extends React.Component {
     const country = e.target.elements.country.value
     if(city && country){
     const APICall = await fetch(`http://api.openweathermap.org/data/2.5/weather?q=${city},${country}&appid=${APIKey}`)
-  
+    
     const response = await APICall.json();
 
-    console.log(response)
+    const lat = response.coord.lat;
+    const lon = response.coord.lon;
+    const APICall2 = await fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${APIKey}`)
+    const response2 = await APICall2.json();
+    console.log(response2)
+    console.log(lat, lon)
 
     this.setState({
       city: `${response.name},${response.sys.country}`,
@@ -88,11 +94,15 @@ class App extends React.Component {
       description: response.weather[0].description,
     })
 
+
     this.getWeatherIcon(this.weatherIcon,response.weather[0].id)
   }else{
-    this.setState({error:true})
+    this.setState({error: true})
   }
 }
+
+
+
   render() {
     return (
     <div className="container">
@@ -109,6 +119,7 @@ class App extends React.Component {
       country={this.state.country}
       weatherIcon={this.state.icon}
     />
+    <Forecast />
     </div>
     
     );

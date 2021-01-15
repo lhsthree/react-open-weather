@@ -15,7 +15,7 @@ const Weather = (props) => {
 			
 				{minmaxTemp(props.minTemp, props.maxTemp)}
 			
-				<h4 className="py-3">{props.description}</h4>
+				<h4 className="py-3">{props.description.toUpperCase()}</h4>
 			</div>
 		</div>
 	)
